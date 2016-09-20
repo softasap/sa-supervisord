@@ -12,20 +12,20 @@
     tags:
         - supervisord
 
-  - name: SupervisorD | install package
+  - name: SupervisorD | update defaults
     shell: update-rc.d supervisor defaults
     become: yes
     tags:
         - supervisord
 
-  - name: SupervisorD | install package
-    service: name=supervisord enabled=yes
+  - name: SupervisorD | ensure service enabled
+    service: name=supervisor enabled=yes
     become: yes
     tags:
         - supervisord
 
-  - name: SupervisorD | install package
-    service: name=supervisord state=restarted
+  - name: SupervisorD | ensure service started
+    service: name=supervisor state=restarted
     when: docker_test is not defined
     become: yes
     tags:
