@@ -1,0 +1,3 @@
+[submodule "roles/sa-supervisord"]
+        path = roles/sa-supervisord
+        url = https://github.com/softasap/sa-supervisord.git
