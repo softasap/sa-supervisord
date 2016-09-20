@@ -9,6 +9,7 @@
 
   - name: SupervisorD | install package
     apt: pkg=supervisor state=present
+    become: yes
     tags:
         - supervisord
 
