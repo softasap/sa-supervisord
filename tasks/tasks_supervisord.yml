@@ -33,6 +33,19 @@
     tags:
         - supervisord
 
+  - name: SupervisorD | ensure log directory present
+    file: path="/var/log/supervisor" state=directory
+    become: yes
+    tags:
+      - supervisord
+
+  - name: SupervisorD | Link to old-style log dir
+    file: path=/var/log/supervisord src=/var/log/supervisor state=link force=yes
+    when: option_oldstyle_supervisord_compatibility
+    become: yes
+    tags:
+        - supervisord
+
   - name: SupervisorD | update defaults
     shell: update-rc.d supervisor defaults
     become: yes
