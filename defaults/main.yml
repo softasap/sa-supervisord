@@ -1,2 +1,5 @@
 ---
 # defaults file for sa-supervisord
+  option_oldstyle_supervisord_compatibility: false
+  supervisor_conf_file: /etc/supervisor/supervisord.conf
+  supervisor_confd_path: /etc/supervisor/conf.d
