@@ -9,6 +9,40 @@
 
   - name: SupervisorD | install package
     apt: pkg=supervisor state=present
+    become: yes
+    tags:
+        - supervisord
+
+  - name: SupervisorD | ensure conf.d directory present
+    file: path="{{supervisor_confd_path}}" state=directory
+    become: yes
+    tags:
+      - supervisord
+
+  - name: SupervisorD | Link to old-style config base dir
+    file: path=/etc/supervisord src=/etc/supervisor state=link force=yes
+    when: option_oldstyle_supervisord_compatibility
+    become: yes
+    tags:
+        - supervisord
+
+  - name: SupervisorD | Link to old-style conf.d dir
+    file: path=/etc/supervisor/programs src=/etc/supervisor/conf.d state=link force=yes
+    when: option_oldstyle_supervisord_compatibility
+    become: yes
+    tags:
+        - supervisord
+
+  - name: SupervisorD | ensure log directory present
+    file: path="/var/log/supervisor" state=directory
+    become: yes
+    tags:
+      - supervisord
+
+  - name: SupervisorD | Link to old-style log dir
+    file: path=/var/log/supervisord src=/var/log/supervisor state=link force=yes
+    when: option_oldstyle_supervisord_compatibility
+    become: yes
     tags:
         - supervisord
 
